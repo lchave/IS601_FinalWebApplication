@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<script src='https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js'></script>
+<canvas id="chart" width="400" height="400"></canvas>
+
+<script>
+
+    Chart.defaults.global.responsive = false;
+    // define the chart data
+    const chartData = {
+        labels: [ {% for label in labels %}
+            "{{label}}",
+        {% endfor %}],
+        datasets : [{
+            label: '{{ legend }}',
+            fill: true,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data : [{% for value in values %}
+            {{value}},
+            {% endfor %}],
+            spanGaps: false
+        }]
+    }
+
+    const ctx = document.getElementById('chart').getContext('2d');
+    const chart = new Chart(ctx, {
+    type: 'bar',
+    data: chartData,
+    });
+</script>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Year</th>
+        <th scope="col">Score</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for movie in movies %}
+    <tr>
+        <td><a href="view/{{ movie.id }}">{{ movie.Title }}</a></td>
+        <td>{{ movie.Year }}</td>
+        <td>{{ movie.Score }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

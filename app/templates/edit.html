@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="/edit/{{movie.id}}" method="post">
+    <div class="row">
+        <div class="col">
+            <label for="Title">Title</label>
+            <input id="Title" type="text" class="form-control" placeholder="Movie Title" name="Title" value="{{movie.Title}}">
+        </div>
+        <div class="col">
+            <label for="Year">Year</label>
+            <input id="Year" type="text" class="form-control" placeholder="Movie Year" name="Year" value="{{movie.Year}}">
+        </div>
+        <div class="col">
+            <label for="Score">Score</label>
+            <input id="Score" type="text" class="form-control" placeholder="Movie Score" name="Score" value="{{movie.Score}}">
+        </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+{% endblock %}

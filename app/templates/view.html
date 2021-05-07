@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="card" class="m-5 p-2">
+    <br>
+    <h5 class="card-title">{{ movie.Year }} - {{ movie.Title }}</h5>
+    <br>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><b>Movie Title:</b> {{ movie.Title }}</li>
+        <li class="list-group-item"><b>Release Year:</b> {{ movie.Year }}</li>
+        <li class="list-group-item"><b>Rotten Tomato Rating:</b> {{ movie.Score }}</li>
+    </ul>
+    <div class="card-body">
+        <a href="/edit/{{ movie.id }}" class="card-link btn btn-primary">edit</a>
+    </div>
+</div>
+<br>
+<form action="/delete/{{ city.id }}" method="post"><button type="submit" class="btn btn-danger">Delete</button></form>
+{% endblock %}

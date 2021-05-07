@@ -1,0 +1,21 @@
+version: "2"
+services:
+  app:
+    build: ./app
+    container_name: "FinalWebApp"
+    links:
+      - db
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+
+  db:
+    image: mysql:5.7
+    container_name: "FinalWebAppDB"
+    ports:
+      - "32000:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro
