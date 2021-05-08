@@ -32,7 +32,7 @@ When the registration process is complete the user data is stored in our databas
 ## Dashboards
 This feature was developed by Luis Chavez Saenz.
 
-Using Chart.js we have created visualizations that enable you to understand our data's statistics better; like the number of Rober Deniro's movies released by per decade, the rating of these movies on a scale from 0 to 100, and the top 10 highest rated movies.
+Using Chart.js we have created visualizations that enable you to understand our data's statistics better; like the number of Robert Deniro's movies released by per decade, the rating of these movies on a scale from 0 to 100, and the top 10 highest rated movies.
 
 The initial data behind these visualization gets populated from our MySQL database. However, as the user edits, adds or deletes records via the API or the web interface; these visualizations get updated to reflect the new data points.
 
