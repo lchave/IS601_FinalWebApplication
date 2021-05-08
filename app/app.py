@@ -29,16 +29,25 @@ def index():
 def charts_view():
     user = {'username': 'Luis'}
     legend = '# of Movies per Decade'
-    labels = ['1960s', '1970s', '1980s', '1990s', '2000s', '2010s']
+    labels = ['1960s or prior', '1970s', '1980s', '1990s', '2000s', '2010s or later']
     values = []
     cursor = mysql.get_db().cursor()
     queries = ['SELECT * FROM tblMovieImport t WHERE t.Year < 1970','SELECT * FROM tblMovieImport t WHERE t.Year >= 1970  AND t.Year< 1980','SELECT * FROM tblMovieImport t WHERE t.Year >= 1980  AND t.Year< 1990','SELECT * FROM tblMovieImport t WHERE t.Year >= 1990  AND t.Year< 2000','SELECT * FROM tblMovieImport t WHERE t.Year >= 2000  AND t.Year< 2010','SELECT * FROM tblMovieImport t WHERE t.Year >= 2010']
     for query in queries:
         cursor.execute(query)
         values.append(cursor.rowcount)
-    cursor.execute('SELECT * FROM tblMovieImport')
+    rating_legend = 'Chronological Movie Ratings'
+    rating_labels = []
+    cursor.execute('SELECT Year FROM tblMovieImport ORDER BY Year ASC')
+    for year in cursor.fetchall():
+        rating_labels.append(list(year.values())[0])
+    rating_values = []
+    cursor.execute('SELECT Score FROM tblMovieImport ORDER BY Year ASC')
+    for rating in cursor.fetchall():
+        rating_values.append(list(rating.values())[0])
+    cursor.execute('SELECT * FROM tblMovieImport ORDER BY Score DESC LIMIT 10')
     result = cursor.fetchall()
-    return render_template('charts.html', title='Home', user=user, movies=result, labels=labels, legend=legend, values=values)
+    return render_template('charts.html', title='Home', user=user, movies=result, labels=labels, legend=legend, values=values, rating_labels=rating_labels, rating_legend=rating_legend, rating_values=rating_values)
 
 @app.route('/view/<int:movie_id>', methods=['GET'])
 def record_view(movie_id):
