@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="/movies/new" method="POST">
+    <div class="row">
+        <div class="col">
+            <label for="Title">Name</label>
+            <input id="Title" type="text" class="form-control" placeholder="Movie Title" name="Title">
+        </div>
+        <div class="col">
+            <label for="Year">UserId</label>
+            <input id="Year" type="text" class="form-control" placeholder="Movie Year" name="Year">
+        </div>
+        <div class="col">
+            <label for="Year">Email</label>
+            <input id="Year" type="text" class="form-control" placeholder="Movie Year" name="Year">
+        </div>
+        <div class="col">
+            <label for="Score">Password</label>
+            <input id="Score" type="text" class="form-control" placeholder="Movie Score" name="Score">
+        </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-success">Sign Up</button>
+</form>
+{% endblock %}
