@@ -6,6 +6,7 @@ from flaskext.mysql import MySQL
 from pymysql.cursors import DictCursor
 from sqlalchemy import create_engine
 
+
 app = Flask(__name__)
 mysql = MySQL(cursorclass=DictCursor)
 
@@ -14,16 +15,28 @@ app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
 app.config['MYSQL_DATABASE_PORT'] = 3306
 app.config['MYSQL_DATABASE_DB'] = 'moviesData'
+app.config['MYSQL_DATABASE_DB'] = 'loginData'
 mysql.init_app(app)
-
 
 @app.route('/', methods=['GET'])
 def index():
-    user = {'username': 'Luis'}
-    cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM tblMovieImport')
-    result = cursor.fetchall()
-    return render_template('index.html', title='Home', user=user, movies=result)
+    return render_template('login.html')
+
+@app.route('/new')
+def new_user():
+    return render_template("register.html")
+
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+
+@app.route('/', methods=['GET','POST']
+def index
+    if request.method == 'POST':
+        if 'username' in request.form and 'password' in request.form:
+            username = request.form ['username']
+            password = request.form ['password']
+
 
 @app.route('/charts', methods=['GET'])
 def charts_view():

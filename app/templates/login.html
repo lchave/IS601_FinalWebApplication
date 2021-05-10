@@ -1,25 +1,28 @@
-{% extends "layout.html" %}
 {% block content %}
-<form action="/movies/new" method="POST">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<form action="/profile">
     <div class="row">
         <div class="col">
-            <label for="Title">Name</label>
-            <input id="Title" type="text" class="form-control" placeholder="Movie Title" name="Title">
+            <label for="Email">Email</label>
+            <input id="Email" type="email" class="form-control" placeholder="@example.com" name="Email">
         </div>
         <div class="col">
-            <label for="Year">UserId</label>
-            <input id="Year" type="text" class="form-control" placeholder="Movie Year" name="Year">
-        </div>
-        <div class="col">
-            <label for="Year">Email</label>
-            <input id="Year" type="text" class="form-control" placeholder="Movie Year" name="Year">
-        </div>
-        <div class="col">
-            <label for="Score">Password</label>
-            <input id="Score" type="text" class="form-control" placeholder="Movie Score" name="Score">
+            <label for="Password">Password</label>
+            <input name="password" class="form-control" type="password" placeholder="Password">
         </div>
     </div>
     <br>
-    <button type="submit" class="btn btn-success">Sign Up</button>
+    <button type="submit" class="btn btn-success">Log In</button>
 </form>
+    <div>
+        <form action="/new">
+            <label> Dont Have A Login?</label>
+            <input value="Register" type="submit">
+        </form>
+    </div>
+
 {% endblock %}
