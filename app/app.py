@@ -137,7 +137,7 @@ def form_update_post(movie_id):
     sql_update_query = """UPDATE tblMovieImport t SET t.Year = %s, t.Score = %s, t.Title = %s WHERE t.id = %s """
     cursor.execute(sql_update_query, inputData)
     mysql.get_db().commit()
-    return redirect("/", code=302)
+    return redirect("/index", code=302)
 
 @app.route('/movies/new', methods=['GET'])
 def form_insert_get():
@@ -151,7 +151,7 @@ def form_insert_post():
     sql_insert_query = """INSERT INTO tblMovieImport (Year,Score,Title) VALUES (%s, %s,%s) """
     cursor.execute(sql_insert_query, inputData)
     mysql.get_db().commit()
-    return redirect("/", code=302)
+    return redirect("/index", code=302)
 
 @app.route('/delete/<int:movie_id>', methods=['POST'])
 def form_delete_post(movie_id):
@@ -159,7 +159,7 @@ def form_delete_post(movie_id):
     sql_delete_query = """DELETE FROM tblMovieImport WHERE id = %s """
     cursor.execute(sql_delete_query, movie_id)
     mysql.get_db().commit()
-    return redirect("/", code=302)
+    return redirect("/index", code=302)
 
 @app.route('/api/v1/movies', methods=['GET'])
 def api_browse() -> str:
