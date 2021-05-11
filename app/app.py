@@ -1,6 +1,6 @@
 from typing import List, Dict
 import simplejson as json
-from flask import Flask, request, Response, redirect
+from flask import Flask, request, Response, redirect,session,url_for
 from flask import render_template
 from flaskext.mysql import MySQL
 from pymysql.cursors import DictCursor
@@ -15,28 +15,44 @@ app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
 app.config['MYSQL_DATABASE_PORT'] = 3306
 app.config['MYSQL_DATABASE_DB'] = 'moviesData'
-app.config['MYSQL_DATABASE_DB'] = 'loginData'
+app.config['MYSQL_DATABASE_DB'] = 'logininfo'
 mysql.init_app(app)
 
-@app.route('/', methods=['GET'])
-def index():
-    return render_template('login.html')
-
-@app.route('/new')
-def new_user():
-    return render_template("register.html")
-
-@app.route('/profile')
-def profile():
-    return render_template('profile.html')
-
-@app.route('/', methods=['GET','POST']
-def index
+@app.route('/', methods=['GET','POST'])
+def index ():
     if request.method == 'POST':
         if 'username' in request.form and 'password' in request.form:
             username = request.form ['username']
             password = request.form ['password']
+            cursor = mysql.get_db().cursor()
+            cursor.execute("SELECT * FROM logininfo WHERE email=%s AND password=%s",(username,password))
+            info = cursor.fetchone()
+            print(info)
+            if info is not None:
+                if info ['email'] == username and info ['password'] == password:
+                    session['loginsuccess'] = True
+                    return redirect(url_for('profile'))
+            else:
+                return render_template("login.html")
 
+    return render_template("login.html")
+
+@app.route('/new', methods=['POST'])
+def new_user():
+    if request.method == "POST":
+        cursor = mysql.get_db().cursor()
+        inputData = (request.form.get('name'), request.form.get('email'), request.form.get('pass'))
+        sql_insert_query = """INSERT INTO logininfo (name, email, password) VALUES (%s,%s,%s) """
+        cursor.execute(sql_insert_query, inputData)
+        mysql.get_db().commit()
+        return redirect("/", code=302)
+    return render_template("register.html")
+
+
+@app.route('/new/profile')
+def profile():
+    if session['loginsuccess'] == True:
+        return render_template("profile.html")
 
 @app.route('/charts', methods=['GET'])
 def charts_view():
@@ -114,7 +130,7 @@ def api_browse() -> str:
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM tblMovieImport')
     result = cursor.fetchall()
-    json_result = json.dumps(result);
+    json_result = json.dumps(result)
     resp = Response(json_result, status=200, mimetype='application/json')
     return resp
 
@@ -123,7 +139,7 @@ def api_retrieve(movie_id) -> str:
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM tblMovieImport WHERE id=%s', movie_id)
     result = cursor.fetchall()
-    json_result = json.dumps(result);
+    json_result = json.dumps(result)
     resp = Response(json_result, status=200, mimetype='application/json')
     return resp
 

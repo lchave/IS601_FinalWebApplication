@@ -4,25 +4,23 @@
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
-<form action="/profile">
+<form action="" method="GET">
     <div class="row">
         <div class="col">
-            <label for="Email">Email</label>
-            <input id="Email" type="email" class="form-control" placeholder="@example.com" name="Email">
+            <label for="Email">Email</label><br>
+            <input id="Email" type="email" class="form-control" placeholder="@example.com" name="Email"><br><br>
         </div>
         <div class="col">
-            <label for="Password">Password</label>
-            <input name="password" class="form-control" type="password" placeholder="Password">
+            <label for="Password">Password</label><br>
+            <input name="password" class="form-control" type="password" placeholder="Password"><br><br>
+
         </div>
     </div>
-    <br>
-    <button type="submit" class="btn btn-success">Log In</button>
+     <input type="submit" value="LOGIN"><br><br>
 </form>
     <div>
-        <form action="/new">
             <label> Dont Have A Login?</label>
-            <input value="Register" type="submit">
-        </form>
+            <a class="btn btn-success pl-2 lr-2 ml-3" href="/new"><span class="sr-only">Register</span></a>
     </div>
 
 {% endblock %}
