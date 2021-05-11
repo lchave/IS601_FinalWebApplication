@@ -3,4 +3,5 @@ flask-mysql
 mysql-connector
 simplejson
 flask-sqlalchemy
+flask-login
 pymysql
