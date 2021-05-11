@@ -1,11 +1,13 @@
 from typing import List, Dict
+import os
 import simplejson as json
-from flask import Flask, request, Response, redirect,session,url_for
+from flask import Flask, request, Response, redirect,session,url_for, flash
 from flask import render_template
 from flaskext.mysql import MySQL
 from pymysql.cursors import DictCursor
 from sqlalchemy import create_engine
 from flask_sqlalchemy import SQLAlchemy
+from flask_mail import Mail, Message
 
 
 app = Flask(__name__)
@@ -17,6 +19,16 @@ app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
 app.config['MYSQL_DATABASE_PORT'] = 3306
 app.config['MYSQL_DATABASE_DB'] = 'moviesData'
 mysql.init_app(app)
+
+app.config['SECRET_KEY'] = 'top-secret!'
+app.config['MAIL_SERVER'] = 'smtp.sendgrid.net'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'apikey'
+app.config['MAIL_PASSWORD'] = os.environ.get('SENDGRID_API_KEY')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER')
+app.config['MAIL_SENDER'] = os.environ.get('MAIL_SENDER')
+mail = Mail(app)
 
 @app.route('/', methods=['GET','POST'])
 def index ():
@@ -55,6 +67,18 @@ def form_register_get():
 
 @app.route('/new', methods=['POST'])
 def form_register_post():
+    recipient = request.form['email']
+    msg = Message('You have successfully register to the IS 601 - Final Web Application', recipients=[recipient])
+    msg.body = ('Congratulations! You have successfully register to the IS 601 - Final Web Application '
+                'Regards,'
+                'Ricardo Torres & Luis Chavez Saenz')
+    msg.html = ('<h1>IS 601 - Final Web Application</h1>'
+                '<p>Congratulations! You have successfully register to our final project '
+                '<b>IS 601 - Final Web Application</b>! '
+                'by '
+                '<b>Ricardo Torres & Luis Chavez Saenz</b></p>')
+    mail.send(msg)
+    flash(f'A registration message was sent to {recipient}.')
     cursor = mysql.get_db().cursor()
     inputData = (request.form.get('name'), request.form.get('email'), request.form.get('pass'))
     sql_insert_query = """INSERT INTO logininfo (name, email, password) VALUES (%s,%s,%s) """
