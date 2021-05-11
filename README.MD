@@ -14,20 +14,23 @@ We have created a web application with a [registration\login mechanism](/README.
 1. Clone the repository to your local computer.
 2. Open the project using PyCharm.
 3. Add Configuration to use the Docker-compose.yml file to initialize the application.
-4. Once the application is running, add the corresponding interpreter to use the app service within the Docker compose file used to initialize the application.
-5. Open your browser and access the web application under your localhost on port 5000
-6. If this is the first time running the application, please register and verify your email information. Else proceed to the next step.
-7. Login using the information provided in the registration form.
-8. View, add, edit, and\or delete records using the Web interface or APIs.
-9. Access the dashboards site to evaluate the statistics of our data.
+4. Add an .env file and include the variables listed below; these environmental variables file should be initialize on your interpreter and configuration:
+   * SENDGRID_API_KEY={API KEY FOR SENDGRID}
+   * MAIL_DEFAULT_SENDER={A VERIFIED SENDER FOR THE SENDGRID API KEY}
+5. Once the application is running, add the corresponding interpreter to use the app service within the Docker compose file used to initialize the application.
+6. Open your browser and access the web application under your localhost on port 5000
+7. If this is the first time running the application, please register and verify your email information. Else proceed to the next step.
+8. Login using the information provided in the registration form.
+9. View, add, edit, and\or delete records using the Web interface or APIs.
+10. Access the dashboards site to evaluate the statistics of our data.
 
 
 ## Login and Registration
 This feature was developed by Ricardo Torres and Luis Chavez Saenz.
 
-We have created a login page and registration form mechanism. After the application is installed and running; you will be prompted to log in to access our data. If you do not have an account yet, you will first need to register by completing the registration form and verifying your email address.
+We have created a login page and registration form mechanism. After the application is installed and running; you will be prompted to log in to access our data. If you do not have an account yet, you will first need to register by completing the registration form. 
 
-When the registration process is complete the user data is stored in our database and this information will be checked and validated during login.
+When the registration process is complete the user data is stored in our database and you will receive a notification email. This information will be checked and validated during login.
 
 ## Dashboards
 This feature was developed by Luis Chavez Saenz.
