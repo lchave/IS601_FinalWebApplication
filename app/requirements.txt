@@ -3,4 +3,7 @@ flask-mysql
 mysql-connector
 simplejson
 flask-sqlalchemy
+flask-login
+flask-mail
 pymysql
+python-dotenv

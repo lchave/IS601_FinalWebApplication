@@ -23,7 +23,7 @@ We have created a web application with a [registration\login mechanism](/README.
 
 
 ## Login and Registration
-This feature was developed by Ricardo Torres.
+This feature was developed by Ricardo Torres and Luis Chavez Saenz.
 
 We have created a login page and registration form mechanism. After the application is installed and running; you will be prompted to log in to access our data. If you do not have an account yet, you will first need to register by completing the registration form and verifying your email address.
 

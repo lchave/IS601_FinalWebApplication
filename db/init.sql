@@ -96,3 +96,17 @@ INSERT INTO tblMovieImport (Year,Score,Title) VALUES
     (2015,  26,'Heist'),
     (2015,  61,'The Intern'),
     (2016,  11,'Dirty Grandpa');
+
+CREATE TABLE IF NOT EXISTS logininfo(
+    `id` int AUTO_INCREMENT,
+    `name` VARCHAR(250),
+    `email` NVARCHAR(250),
+    `password` NVARCHAR(250),
+    PRIMARY KEY (`id`)
+);
+
+INSERT INTO logininfo (name,email,password) VALUES
+    ('waseem','waseem@xyz.com','12345'),
+    ('omkar','omkar@xyz.com','12345'),
+    ('vishal','vishal@xyz.com','12345'),
+    ('arvind','arvind@xyz.com','12345');
